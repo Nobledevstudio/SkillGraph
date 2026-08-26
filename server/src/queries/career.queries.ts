@@ -4,12 +4,17 @@ export const getCareerPathsQuery = `
         -[:RELATED_TO]->(related:Skill)
         <-[:REQUIRES]-(job:Job)
 
-  WHERE NOT (person)-[:HAS_SKILL]->(related)
+  MATCH (person)-[:HAS_SKILL]->(personSkill:Skill)
+
+  WITH current, related, job,
+       collect(DISTINCT personSkill.id) AS personSkillIds
+
+  WHERE NOT related.id IN personSkillIds
 
   RETURN
-    current,
-    related,
-    job
+    current.name AS currentSkill,
+    related.name AS relatedSkill,
+    job.title AS job
 
   ORDER BY job.title
 `
