@@ -42,10 +42,7 @@ export default function CompaniesGrid() {
             {companies.map((company) => (
                 <CompanyCard
                     key={company.id}
-                    id={company.id}
-                    name={company.name}
-                    description={company.description}
-                    openJobs={company.openJobs}
+                    company={company}
                 />
             ))}
         </div>

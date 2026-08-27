@@ -1,22 +1,19 @@
 import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness } from "lucide-react";
+import { Company } from "./types/companies.types";
+
+
 
 type CompanyCardProps = {
-    id: string;
-    name: string;
-    description: string;
-    openJobs: number;
+    company: Company;
 };
 
 export default function CompanyCard({
-    id,
-    name,
-    description,
-    openJobs,
+    company,
 }: CompanyCardProps) {
     return (
         <Link
-            href={`/companies/${id}`}
+            href={`/companies/${company.id}`}
             className="group rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg hover:shadow-primary/5"
         >
             <div className="flex items-start justify-between gap-4">
@@ -28,18 +25,18 @@ export default function CompanyCard({
             </div>
 
             <h2 className="mt-5 text-lg font-semibold text-slate-900">
-                {name}
+                {company.name}
             </h2>
 
             <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">
-                {description}
+                {company.description}
             </p>
 
             <div className="mt-5 flex items-center gap-2 text-sm text-slate-600">
                 <span className="font-medium">Open jobs:</span>
 
                 <span className="font-semibold text-slate-900">
-                    {openJobs}
+                    {company.openJobs}
                 </span>
             </div>
 
