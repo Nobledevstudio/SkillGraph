@@ -1,3 +1,15 @@
+export type Company = {
+    id: string;
+    name: string;
+    description: string;
+    openJobs: number;
+};
+
+export type CompaniesResponse = {
+    success: boolean;
+    data: Company[];
+};
+
 export type CompanyJobSkill = {
     id: string;
     name: string;
