@@ -1,5 +1,5 @@
-
 import express, { type Application } from 'express'
+import cors from "cors";
 import skillRouter from './module/skills/skills.route.ts'
 import { errorMiddleware } from './middleware/error.middleware.ts'
 import companyRouter from './module/company/company.routes.ts'
@@ -9,7 +9,16 @@ import searchRouter from './module/search/search.route.ts'
 
 const app: Application = express()
 
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+);
+
 app.use(express.json())
+
+
 
 app.use('/api/skills', skillRouter)
 app.use('/api/companies', companyRouter)
