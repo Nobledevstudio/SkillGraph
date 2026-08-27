@@ -1,10 +1,15 @@
 import { api } from "@/lib/axios";
-import { CompanyJobsResponse } from "../types/companies.types";
 
+import {
+    CompaniesResponse,
+    CompanyJobsResponse,
+} from "../types/companies.types";
 
-export const getCompanies = async (): Promise<CompanyJobsResponse> => {
+export const getCompanies = async (): Promise<CompaniesResponse> => {
     try {
-        const response = await api.get<CompanyJobsResponse>("/companies");
+        const response = await api.get<CompaniesResponse>(
+            "/companies"
+        );
 
         return response.data;
     } catch (error) {
