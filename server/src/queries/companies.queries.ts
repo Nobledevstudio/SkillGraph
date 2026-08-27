@@ -21,3 +21,14 @@ export const getCompanyJobsAndSkillsQuery = `
 
   ORDER BY job.title
 `
+
+export const getCompaniesQuery = `
+  MATCH (company:Company)
+  OPTIONAL MATCH (company)-[:OFFERS]->(job:Job)
+
+  RETURN
+    company,
+    count(DISTINCT job) AS openJobs
+
+  ORDER BY company.name
+`;

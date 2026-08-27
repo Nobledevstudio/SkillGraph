@@ -7,4 +7,4 @@ export const globalSearchQuery = `
     labels(node) AS types,
     node
   LIMIT 20
-`
+`;

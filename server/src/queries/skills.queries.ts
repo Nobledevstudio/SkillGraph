@@ -1,3 +1,15 @@
+export const getSkillsQuery = `
+  MATCH (skill:Skill)
+  RETURN skill
+  ORDER BY skill.name
+`
+
+export const getSkillQuery = `
+    MATCH (skill:Skill {id: $skillId})
+    RETURN skill
+`;
+
+
 export const getRelatedSkillsQuery = `
   MATCH (person:Person {id: $personId})
         -[:HAS_SKILL]->(skill:Skill)

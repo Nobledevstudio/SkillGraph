@@ -14,3 +14,15 @@ export const getJobsForPersonQuery = `
 
   ORDER BY matchCount DESC
 `
+
+export const getJobsQuery = `
+MATCH (job:Job)-[:REQUIRES]->(skill:Skill)
+RETURN job, collect(skill) AS skills
+ORDER BY job.title
+`;
+
+export const getJobQuery = `
+    MATCH (job:Job {id: $jobId})
+    OPTIONAL MATCH (job)-[:REQUIRES]->(skill:Skill)
+    RETURN job, collect(skill) AS skills
+`;

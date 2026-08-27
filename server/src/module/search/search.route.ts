@@ -6,6 +6,6 @@ import { globalSearchController } from './search.controller.ts'
 
 const searchRouter = Router()
 
-searchRouter.get('/',asyncHandler(globalSearchController),)
+searchRouter.get('/',asyncHandler(globalSearchController))
 
 export default searchRouter
