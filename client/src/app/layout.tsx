@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Poppins, Geist } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/lib/utils";
+import { Poppins } from "next/font/google";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Providers from "./provider";
 
 const poppins = Poppins({
-  subsets: ["latin"],
   variable: "--font-poppins",
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "SkillGraph",
   description:
-    "Explore skills, careers, jobs, and companies through a connected graph.",
+    "Explore careers through the connections between skills, jobs, companies, and industries.",
 };
 
 export default function RootLayout({
@@ -23,8 +24,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body>{children}</body>
+    <html lang="en" className={`${poppins.variable} antialiased`}>
+      <body className="min-h-screen bg-white font-sans">
+        <Providers>
+          <Navbar />
+
+          <main>{children}</main>
+
+          <Footer />
+        </Providers>
+      </body>
     </html>
   );
 }
