@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 import { AppError } from '../../errors/AppError.ts'
-import { getCompanyJobsAndSkills } from './controller.services.ts'
+import { getCompanies, getCompanyJobsAndSkills } from './controller.services.ts'
 
 
 export const getCompanyJobsAndSkillsController = async (
@@ -18,5 +18,19 @@ export const getCompanyJobsAndSkillsController = async (
   return res.status(200).json({
     success: true,
     data: result,
+  })
+}
+
+
+
+export const getCompaniesController = async (
+  req: Request,
+  res: Response,
+) => {
+  const companies = await getCompanies()
+
+  res.status(200).json({
+    success: true,
+    data: companies,
   })
 }

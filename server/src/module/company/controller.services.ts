@@ -1,5 +1,5 @@
 import { runQuery } from '../../db/query.ts'
-import { getCompanyJobsAndSkillsQuery } from '../../queries/companies.queries.ts'
+import { getCompaniesQuery, getCompanyJobsAndSkillsQuery } from '../../queries/companies.queries.ts'
 
 export const getCompanyJobsAndSkills = async (
   companyId: string,
@@ -16,6 +16,21 @@ export const getCompanyJobsAndSkills = async (
     return {
       job: job.properties,
       skills: skills.map((skill: any) => skill.properties),
+    }
+  })
+}
+
+
+export const getCompanies = async () => {
+  const records = await runQuery(getCompaniesQuery)
+
+  return records.map((record) => {
+    const company = record.get('company')
+    const openJobs = record.get('openJobs').toNumber()
+
+    return {
+      ...company.properties,
+      openJobs,
     }
   })
 }
