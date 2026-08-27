@@ -1,36 +1,46 @@
 # SkillGraph
 
-SkillGraph is a career recommendation platform that connects a person's current skills and experience level to relevant career opportunities.
+SkillGraph is a graph-based career recommendation platform that connects a person's current skills and experience level to relevant career opportunities.
 
-The platform uses a graph-based approach to identify matching skills, missing skills, recommended career opportunities, and additional skills a candidate can learn to unlock more opportunities.
+It analyzes the relationship between **people, skills, jobs, and companies** to identify suitable career paths, matching skills, missing skills, and additional skills that can unlock more opportunities.
 
 ## Features
 
-* **People Directory**
+### People Directory
 
-  * View available candidates.
-  * See each person's experience level and location.
-  * Select a candidate to view their career path.
+* View available candidates.
+* See each person's experience level and location.
+* Select a candidate to explore their career path.
 
-* **Career Path**
+### Career Path
 
-  * Displays the candidate's profile information.
-  * Shows current skills.
-  * Provides recommended career opportunities.
-  * Calculates a match percentage for each opportunity.
-  * Displays skills that match the opportunity.
-  * Identifies missing skills.
-  * Recommends additional skills to learn based on available opportunities.
+Each candidate has a personalized career path showing:
 
-* **Career Recommendations**
+* Candidate profile information.
+* Current skills.
+* Recommended career opportunities.
+* Match percentage for each opportunity.
+* Skills that match the opportunity.
+* Missing skills required for the opportunity.
+* Additional skills the candidate could learn.
 
-  * Ranks opportunities based on skill compatibility.
-  * Shows matched and missing skills for each recommendation.
+### Career Recommendations
 
-* **Skills to Learn**
+Career opportunities are ranked according to skill compatibility.
 
-  * Identifies skills that can unlock additional opportunities.
-  * Shows the number of jobs associated with each skill.
+Each recommendation displays:
+
+* Job title.
+* Company.
+* Match percentage.
+* Matched skills.
+* Missing skills.
+
+### Skills to Learn
+
+SkillGraph identifies skills that can potentially unlock additional career opportunities.
+
+For each skill, the platform shows the number of jobs associated with that skill.
 
 ## Tech Stack
 
@@ -49,7 +59,8 @@ The platform uses a graph-based approach to identify matching skills, missing sk
 * Node.js
 * Express.js
 * TypeScript
-* Neo4j / Cypher
+* CognoDB
+* Cypher
 
 ### Development Tools
 
@@ -61,24 +72,24 @@ The platform uses a graph-based approach to identify matching skills, missing sk
 ## Application Flow
 
 ```text
-People
-  │
-  ├── Select Candidate
-  │
-  ▼
+People Directory
+      │
+      ├── Select Candidate
+      │
+      ▼
 Career Path
-  │
-  ├── Candidate Profile
-  │
-  ├── Current Skills
-  │
-  ├── Career Recommendations
-  │      ├── Match Percentage
-  │      ├── Matched Skills
-  │      └── Missing Skills
-  │
-  └── Skills To Learn
-         └── Additional Job Opportunities
+      │
+      ├── Candidate Profile
+      │
+      ├── Current Skills
+      │
+      ├── Career Recommendations
+      │       ├── Match Percentage
+      │       ├── Matched Skills
+      │       └── Missing Skills
+      │
+      └── Skills To Learn
+              └── Additional Job Opportunities
 ```
 
 ## API
@@ -121,13 +132,13 @@ GET /api/career/person-daniel/paths
 
 The endpoint returns:
 
-* Candidate information
-* Current skills
-* Recommended career opportunities
-* Match percentages
-* Matched skills
-* Missing skills
-* Skills to learn
+* Candidate information.
+* Current skills.
+* Recommended career opportunities.
+* Match percentages.
+* Matched skills.
+* Missing skills.
+* Skills to learn.
 
 ## Project Structure
 
@@ -136,6 +147,11 @@ The endpoint returns:
 ├── client/
 │   └── src/
 │       ├── app/
+│       │   ├── career/
+│       │   ├── companies/
+│       │   ├── jobs/
+│       │   ├── search/
+│       │   └── skills/
 │       ├── components/
 │       └── features/
 │
@@ -144,7 +160,7 @@ The endpoint returns:
 │       ├── db/
 │       ├── middleware/
 │       ├── queries/
-│       └── modules/
+│       └── module/
 │           ├── career/
 │           └── person/
 │
@@ -156,23 +172,41 @@ The endpoint returns:
 
 ## Screenshots
 
-Project screenshots are available in:
+Screenshots of the application are available in:
 
 ```text
 docs/screenshots/
 ```
 
-The screenshots demonstrate the People directory and Career Path experience.
+### Explore Page
+
+![Explore Page](docs/screenshots/explore_page.png)
+
+### People / Career Path
+
+![Career Path](docs/screenshots/career_path.png)
+
+### Jobs
+
+![Jobs](docs/screenshots/job.png)
+
+### Skills
+
+![Skills](docs/screenshots/skills.png)
+
+### Companies
+
+![Companies](docs/screenshots/comapnies.png)
 
 ## Running Locally
 
 ### Prerequisites
 
-Make sure you have installed:
+Make sure you have the following installed:
 
 * Node.js
 * pnpm
-* Neo4j
+* CognoDB access
 
 ### Install Dependencies
 
@@ -182,7 +216,7 @@ From the project root:
 pnpm install
 ```
 
-If the frontend and backend have separate package files, install dependencies in each directory:
+If the frontend and backend use separate package files:
 
 ```bash
 cd client
@@ -196,42 +230,27 @@ pnpm install
 
 ## Environment Variables
 
-Create a `.env` file in the server directory:
+Create a `.env` file inside the `server` directory:
 
+```env
 COGNODB_URI=your_cognodb_uri
 COGNODB_USERNAME=cognodb
 COGNODB_PASSWORD=your_cognodb_password
+```
 
-Do not commit your `.env` file or expose your credentials.
-
-
-
-Configure the frontend API base URL according to your local backend:
+Create/configure the frontend environment file with the backend API URL:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
 ```
 
-### Start the Backend
+Do not commit `.env` files or expose database credentials.
+
+## Start the Backend
 
 ```bash
 cd server
 pnpm dev
-```
-
-### Start the Frontend
-
-In another terminal:
-
-```bash
-cd client
-pnpm dev
-```
-
-The frontend should then be available at:
-
-```text
-http://localhost:3000
 ```
 
 The backend runs on:
@@ -240,9 +259,24 @@ The backend runs on:
 http://localhost:5000
 ```
 
+## Start the Frontend
+
+In another terminal:
+
+```bash
+cd client
+pnpm dev
+```
+
+The frontend runs on:
+
+```text
+http://localhost:3000
+```
+
 ## Example Career Recommendation
 
-For a candidate with:
+For a candidate with the following skills:
 
 ```text
 JavaScript
@@ -252,21 +286,21 @@ MongoDB
 Git
 ```
 
-SkillGraph can identify opportunities such as:
+SkillGraph can identify a relevant opportunity such as:
 
 ```text
 Backend Developer
 67% Match
 
-Matched:
+Matched Skills:
 ✓ Node.js
 ✓ Express.js
 
-Missing:
+Missing Skill:
 PostgreSQL
 ```
 
-It can also identify additional skills that may open up more opportunities, such as:
+The platform can also identify skills that may unlock additional opportunities:
 
 ```text
 PostgreSQL
@@ -276,14 +310,48 @@ TypeScript
 REST API
 ```
 
+## Recommendation Logic
+
+SkillGraph compares a candidate's existing skills against the skills required by available jobs.
+
+The recommendation process identifies:
+
+1. Skills the candidate already has.
+2. Skills required by each job.
+3. Skills shared between the candidate and the job.
+4. Missing skills.
+5. A match percentage based on skill compatibility.
+6. Additional skills that could unlock more opportunities.
+
 ## Design Goals
 
 The application was designed around three main principles:
 
-1. **Skill-based recommendations** — connect candidate skills to relevant opportunities.
-2. **Actionable gaps** — clearly show which skills are missing for a potential career path.
-3. **Career discovery** — help candidates understand which skills could unlock additional opportunities.
+### 1. Skill-Based Recommendations
+
+Connect a candidate's existing skills to relevant career opportunities.
+
+### 2. Actionable Skill Gaps
+
+Clearly show which skills are missing for a potential career path.
+
+### 3. Career Discovery
+
+Help candidates understand which skills they can learn to expand their available career opportunities.
 
 ## Status
 
-The core SkillGraph career recommendation experience is complete, including the People directory, candidate career paths, skill matching, recommendations, and skills-to-learn functionality.
+The core SkillGraph career recommendation experience is complete.
+
+It includes:
+
+* People directory.
+* Candidate career paths.
+* Skill matching.
+* Career recommendations.
+* Match percentages.
+* Missing skill identification.
+* Skills-to-learn recommendations.
+* Jobs, skills, and companies exploration.
+* Backend API integration.
+* CognoDB graph-based queries.
