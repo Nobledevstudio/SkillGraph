@@ -44,12 +44,6 @@ export default function SkillsGrid({
                 (skill) => skill.category === selectedCategory
             );
 
-
-    console.log(
-        "SEARCH RESULTS:",
-        JSON.stringify(searchQuery.data?.data, null, 2)
-    );
-
     if (filteredSkills.length === 0) {
         return (
             <EmptyState
