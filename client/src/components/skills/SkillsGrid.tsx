@@ -49,8 +49,6 @@ export default function SkillsGrid({
         "SEARCH RESULTS:",
         JSON.stringify(searchQuery.data?.data, null, 2)
     );
-    console.log("SKILLS:", skills);
-    console.log("FILTERED SKILLS:", filteredSkills);
 
     if (filteredSkills.length === 0) {
         return (
